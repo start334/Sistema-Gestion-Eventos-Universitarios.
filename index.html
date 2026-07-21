@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eventos Universitarios</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <div class="logo">EU</div>
+    <div><h1>Eventos Universitarios</h1><p>Sistema de gestión e inscripción</p></div>
+  </div>
+  <div id="profileArea" class="profile-area hidden">
+    <div class="profile-text"><strong id="topUserName"></strong><span id="topUserRole"></span></div>
+    <div class="avatar-wrap" title="Perfil del usuario">
+      <span class="avatar-ring"></span>
+      <img id="topAvatar" class="top-avatar" alt="Foto de perfil">
+    </div>
+    <button id="logoutBtn" class="btn secondary" type="button">Cerrar sesión</button>
+  </div>
+</header>
+
+<main class="container">
+  <section id="loginView" class="auth-layout">
+    <div class="hero-card">
+      <span class="eyebrow">PROTOTIPO FUNCIONAL</span>
+      <h2>Organiza y participa en eventos universitarios</h2>
+      <p>Conecta, participa y vive la experiencia universitaria desde una sola plataforma.</p>
+      <ul><li>Registro de usuarios</li><li>Inicio de sesión</li><li>Gestión de eventos</li><li>Consulta de eventos</li><li>Inscripción a eventos</li></ul>
+    </div>
+    <div class="panel auth-panel">
+      <div class="tabs"><button class="tab active" data-auth-tab="login">Iniciar sesión</button><button class="tab" data-auth-tab="register">Registrarse</button></div>
+      <form id="loginForm" class="form">
+        <label>Correo institucional<input id="loginEmail" type="email" placeholder="usuario@universidad.edu" required></label>
+        <label>Contraseña<input id="loginPassword" type="password" placeholder="Mínimo 6 caracteres" required></label>
+        <button class="btn primary" type="submit">Ingresar</button>
+        <p class="form-help">Usuario demo: <strong>admin@universidad.edu</strong><br>Contraseña: <strong>123456</strong></p>
+      </form>
+      <form id="registerForm" class="form hidden">
+        <label>Nombre completo<input id="registerName" type="text" minlength="2" maxlength="45" placeholder="Escribe tu nombre" required></label>
+        <label>Correo institucional<input id="registerEmail" type="email" placeholder="usuario@universidad.edu" required></label>
+        <label>Contraseña<input id="registerPassword" type="password" minlength="6" required></label>
+        <label>Rol<select id="registerRole"><option>Estudiante</option><option>Organizador</option></select></label>
+        <div class="orion-privacy-note" role="note">
+          <img src="assets/orion.png" alt="Orion, protector de datos">
+          <div><strong>¿Sabías que Orion protege tus datos?</strong><span>La información de este prototipo se guarda únicamente en este navegador y no se envía a servidores externos.</span></div>
+        </div>
+        <button class="btn primary" type="submit">Crear cuenta</button>
+        <p class="form-help">El nombre debe ser respetuoso y solo puede contener letras, espacios, apóstrofes o guiones.</p>
+      </form>
+    </div>
+  </section>
+
+  <section id="appView" class="hidden">
+    <div class="welcome">
+      <div class="welcome-user">
+        <img id="welcomeAvatar" class="welcome-avatar" alt="Avatar del usuario">
+        <div><span class="eyebrow">PANEL PRINCIPAL</span><h2 id="welcomeTitle">Bienvenido</h2><p id="welcomeSubtitle"></p></div>
+      </div>
+      <div class="summary"><div class="summary-card"><strong id="eventCount">0</strong><span>Eventos</span></div><div class="summary-card"><strong id="enrollmentCount">0</strong><span>Inscripciones</span></div><div class="summary-card"><strong id="userCount">0</strong><span>Usuarios</span></div></div>
+    </div>
+    <nav class="app-tabs"><button class="app-tab active" data-view="events">Eventos disponibles</button><button class="app-tab" data-view="manage">Gestionar eventos</button><button class="app-tab" data-view="enrollments">Mis inscripciones</button><button class="app-tab" data-view="users">Usuarios registrados</button></nav>
+
+    <section id="eventsSection" class="app-section">
+      <div id="orionSuggestion" class="orion-card">
+        <div class="orion-image-wrap"><img src="assets/orion.png" alt="Orion, asistente exclusivo del sistema"></div>
+        <div class="orion-copy"><span class="eyebrow">SUGERENCIA DE ORION</span><h3>Tu guía dentro del sistema</h3><p id="orionMessage">Explora los eventos disponibles y elige una experiencia que complemente tu vida universitaria.</p></div>
+      </div>
+      <div class="section-heading"><div><h3>Consulta de eventos</h3><p>Explora las actividades disponibles e inscríbete.</p></div><input id="searchEvent" class="search" type="search" placeholder="Buscar por nombre o lugar..."></div><div id="eventsGrid" class="cards-grid"></div>
+    </section>
+
+    <section id="manageSection" class="app-section hidden"><div class="two-column">
+      <div class="panel"><h3 id="eventFormTitle">Crear nuevo evento</h3><form id="eventForm" class="form">
+        <input id="eventId" type="hidden">
+        <label>Nombre del evento<input id="eventName" type="text" required></label>
+        <label>Fecha<input id="eventDate" type="date" required></label>
+        <label>Hora<input id="eventTime" type="time" required></label>
+        <label>Lugar<input id="eventPlace" type="text" required></label>
+        <label>Cupos<input id="eventCapacity" type="number" min="1" value="30" required></label>
+        <label>Descripción<textarea id="eventDescription" rows="4" required></textarea></label>
+        <div class="button-row"><button class="btn primary" type="submit">Guardar evento</button><button id="cancelEditBtn" class="btn secondary hidden" type="button">Cancelar edición</button></div>
+      </form></div>
+      <div class="panel"><h3>Eventos registrados</h3><div id="manageEventList" class="list"></div></div>
+    </div></section>
+
+    <section id="enrollmentsSection" class="app-section hidden"><div class="section-heading"><div><h3>Mis inscripciones</h3><p>Consulta los eventos en los que te has registrado.</p></div></div><div id="enrollmentsList" class="list"></div></section>
+    <section id="usersSection" class="app-section hidden">
+      <div class="section-heading">
+        <div><h3>Usuarios registrados</h3><p>Listado de estudiantes y organizadores.</p></div>
+        <button id="resetUsersBtn" class="btn danger hidden" type="button">Restablecer usuarios de prueba</button>
+      </div>
+      <div id="usersList" class="list"></div>
+      <p id="resetUsersHelp" class="form-help hidden">Esta opción elimina los usuarios creados, las inscripciones y reinicia el perfil del administrador para probar nuevamente la experiencia inicial.</p>
+    </section>
+  </section>
+</main>
+
+<div id="welcomeOverlay" class="welcome-overlay hidden" aria-live="polite">
+  <div class="overlay-glow"></div>
+  <p id="overlayStatus" class="overlay-status">Inicializando sistema...</p>
+  <h2 id="overlayWelcome" class="overlay-welcome"></h2>
+</div>
+
+
+<section id="returnGate" class="return-gate hidden" aria-label="Inicio del perfil guardado">
+  <div class="gate-ambient"></div>
+  <div class="gate-content">
+    <p class="gate-instruction">Pulsa tu perfil para continuar</p>
+    <button id="gateProfileButton" class="gate-profile-button" type="button" aria-label="Abrir selección de usuario">
+      <span class="gate-avatar-shell">
+        <span class="gate-pulse"></span>
+        <span class="gate-ring"></span>
+        <img id="gateAvatar" class="gate-avatar" alt="Imagen del usuario">
+      </span>
+    </button>
+    <span class="gate-user-name" id="gateUserName"></span>
+  </div>
+</section>
+
+<section id="waitOverlay" class="wait-overlay hidden" aria-live="polite">
+  <div class="wait-content">
+    <span class="wait-avatar-shell">
+      <span class="wait-ring"></span>
+      <img id="waitAvatar" class="wait-avatar" alt="Imagen del usuario">
+    </span>
+    <p>Espere...</p>
+    <span class="wait-line"></span>
+  </div>
+</section>
+
+<section id="returnPortal" class="return-portal hidden" aria-label="Acceso al perfil">
+  <div class="return-ambient"></div>
+  <div class="return-stage">
+    <span class="eyebrow return-eyebrow">EVENTOS UNIVERSITARIOS</span>
+    <h2>Pulsa tu usuario para comenzar</h2>
+    <p>Continúa con tu perfil guardado o cambia tu imagen antes de entrar.</p>
+    <div class="return-profile-row">
+      <button id="returnUserCard" class="return-user-card" type="button">
+        <span class="avatar-wrap return-avatar-wrap">
+          <span class="avatar-ring"></span>
+          <img id="returnAvatar" class="return-avatar" alt="Imagen del usuario">
+        </span>
+        <strong id="returnUserName"></strong>
+        <small id="returnUserRole"></small>
+        <span class="enter-hint">Pulsa para entrar</span>
+      </button>
+      <label class="change-avatar-card" for="returnAvatarUpload">
+        <span class="change-avatar-icon">＋</span>
+        <strong>Cambiar imagen</strong>
+        <small>Usa una fotografía nueva</small>
+        <input id="returnAvatarUpload" type="file" accept="image/png,image/jpeg,image/webp" hidden>
+      </label>
+    </div>
+    <button id="returnBackBtn" class="return-back" type="button">Volver al inicio de sesión</button>
+  </div>
+</section>
+
+<section id="profileChooser" class="profile-chooser hidden" aria-label="Selección de perfil">
+  <div class="profile-stage">
+    <span class="eyebrow profile-eyebrow">PERSONALIZA TU EXPERIENCIA</span>
+    <h2>Elige tu imagen de perfil</h2>
+    <p>Puedes utilizar el personaje recomendado para tu rol o cargar una fotografía propia.</p>
+
+    <div class="profile-options">
+      <button id="defaultAvatarOption" class="profile-option selected" type="button">
+        <span class="avatar-wrap chooser-avatar-wrap">
+          <span class="avatar-ring"></span>
+          <img id="defaultAvatarPreview" class="chooser-avatar" alt="Avatar recomendado">
+        </span>
+        <strong id="defaultAvatarLabel">Avatar recomendado</strong>
+        <small>Imagen exclusiva según tu rol</small>
+      </button>
+
+      <label class="profile-option upload-option" for="profileUpload">
+        <span class="avatar-wrap chooser-avatar-wrap">
+          <span class="avatar-ring"></span>
+          <img id="customAvatarPreview" class="chooser-avatar hidden" alt="Vista previa de la fotografía">
+          <span id="uploadPlaceholder" class="upload-placeholder">＋</span>
+        </span>
+        <strong>Cargar mi fotografía</strong>
+        <small>JPG, PNG o WEBP</small>
+        <input id="profileUpload" type="file" accept="image/png,image/jpeg,image/webp" hidden>
+      </label>
+    </div>
+
+    <button id="confirmProfileBtn" class="btn profile-confirm" type="button">Continuar al sistema</button>
+    <p class="profile-note">Podrás usar el sistema con la imagen elegida en este navegador.</p>
+  </div>
+</section>
+
+<section id="sessionOverlay" class="session-overlay hidden" aria-live="polite" aria-label="Cargando sesión">
+  <div class="session-ambient"></div>
+  <div class="session-content">
+    <div class="session-avatar-shell" aria-hidden="true">
+      <span class="session-avatar-ring"></span>
+      <img id="sessionAvatar" class="session-avatar" alt="">
+    </div>
+    <h2 id="sessionOverlayTitle">Cargando</h2>
+    <p id="sessionOverlayText">Preparando tu espacio</p>
+    <span class="session-progress" aria-hidden="true"><i></i></span>
+  </div>
+</section>
+
+
+<section id="logoutOverlay" class="logout-overlay hidden" aria-live="polite" aria-label="Cierre de sesión">
+  <div class="logout-glow"></div>
+  <div class="logout-stars"></div>
+  <div class="logout-content">
+    <div class="logout-avatar-shell">
+      <span class="logout-avatar-ring"></span>
+      <img id="logoutAvatar" class="logout-avatar" alt="Imagen del usuario">
+    </div>
+    <h2 id="logoutTitle">Hasta pronto</h2>
+    <p id="logoutText">Cerrando sesión</p>
+    <span class="logout-line"><i></i></span>
+  </div>
+</section>
+
+<audio id="profileMusic" src="assets/menu-perfil.mp3" preload="auto" loop></audio>
+<audio id="selectionAudio" src="assets/sonido-seleccion.mp3" preload="auto"></audio>
+<div id="toast" class="toast"></div>
+<footer>© 2026 Sistema de Gestión de Eventos Universitarios. Todos los derechos reservados. Proyecto académico.</footer>
+<script src="script.js"></script>
+</body>
+</html>
