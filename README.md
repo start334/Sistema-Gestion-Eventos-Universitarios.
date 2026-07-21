@@ -7,7 +7,7 @@ Prototipo web funcional para registrar usuarios, administrar eventos, consultar 
 1. Registro de usuarios con validación de nombres y filtro de lenguaje inapropiado.
 2. Inicio de sesión con bienvenida personalizada y voz del navegador.
 3. Avatares exclusivos según el rol: estudiante u organizador.
-4. Música ambiental relajante, reproducida a volumen bajo y con control para silenciar.
+4. Música ambiental.
 5. Creación, edición y eliminación de eventos.
 6. Consulta, búsqueda e inscripción a eventos.
 
@@ -17,9 +17,6 @@ Abre `index.html` en un navegador moderno. No requiere instalación.
 ## Usuario de demostración
 - Correo: admin@universidad.edu
 - Contraseña: 123456
-
-## Nota sobre la voz
-La voz utilizada depende de las voces disponibles en el navegador y en el sistema operativo del equipo.
 
 ## Personalización del perfil
 
