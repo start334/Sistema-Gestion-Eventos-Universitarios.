@@ -1,23 +1,28 @@
-# Sistema de Gestión de Eventos Universitarios
+## Aplicación publicada
 
-## Descripción
-Prototipo web funcional para registrar usuarios, administrar eventos, consultar actividades e inscribir estudiantes.
+El prototipo funcional del Sistema de Gestión de Eventos Universitarios se encuentra disponible en GitHub Pages.
 
-## Funcionalidades
-1. Registro de usuarios con validación de nombres y filtro de lenguaje inapropiado.
-2. Inicio de sesión con bienvenida personalizada y voz del navegador.
-3. Avatares exclusivos según el rol: estudiante u organizador.
-4. Música ambiental.
-5. Creación, edición y eliminación de eventos.
-6. Consulta, búsqueda e inscripción a eventos.
+**Enlace de la aplicación:**
 
-## Ejecución
-Abre `index.html` en un navegador moderno. No requiere instalación.
+https://start334.github.io/Sistema-Gestion-Eventos-Universitarios./
 
-## Usuario de demostración
-- Correo: admin@universidad.edu
-- Contraseña: 123456
+## Documentación del proyecto
 
-## Personalización del perfil
+El repositorio incluye documentación relacionada con:
 
-En el primer inicio de sesión, el sistema muestra una secuencia de configuración y permite elegir el avatar recomendado según el rol o cargar una fotografía propia. La elección se guarda localmente en el navegador. En los siguientes inicios de sesión, el sistema omite la configuración inicial y reproduce una bienvenida personalizada.
+- Requisitos funcionales y no funcionales.
+- Casos de prueba.
+- Plan de mantenibilidad.
+- Matriz de riesgos.
+- Cronograma W5HH.
+- Funcionalidades implementadas.
+- Evidencias del prototipo.
+
+## Tecnologías utilizadas
+
+- HTML.
+- CSS.
+- JavaScript.
+- LocalStorage.
+- GitHub.
+- GitHub Pages.
